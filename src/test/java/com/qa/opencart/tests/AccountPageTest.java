@@ -4,9 +4,11 @@ import java.util.List;
 
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import com.qa.opencart.utils.Constants;
+import com.qa.opencart.utils.ExcelUtil;
 
 public class AccountPageTest extends BaseTest{
 	
@@ -15,6 +17,18 @@ public class AccountPageTest extends BaseTest{
 	public void AccntPageSetup()
 	{
 		accountPage = login.doLogin(prop.getProperty("username"), prop.getProperty("password"));
+	}
+	
+	@DataProvider
+	public Object[][] getLinkdata()
+	{
+		return ExcelUtil.getTestData(Constants.ACCOUNT_PAGELINKS_SHEET_NAME);
+	}
+	
+	@Test (dataProvider = "getLinkdata")
+	public void accPageLinkExistTest(String linkName)
+	{
+		Assert.assertTrue(accountPage.isPageLinkAvaiable(linkName));
 	}
 	
 	@Test

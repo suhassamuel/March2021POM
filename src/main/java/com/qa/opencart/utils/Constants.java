@@ -9,6 +9,7 @@ public class Constants {
 	public final static String ACCOUNT_PAGE_TITLE = "My Account";
 	public final static String ACCOUNT_PAGE_HEADER = "Your Store";
 	public final static String ACCOUNT_SUCCESS_HEADER = "Your Account Has Been Created!";
+	public final static String ACCOUNT_PAGELINKS_SHEET_NAME = "pagelinks";
 	
 	public final static String REGISTER_SUCCESS_MESSG = "Your Account Has Been Created!";
 	

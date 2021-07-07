@@ -66,7 +66,9 @@ public class ElementUtil {
 	public boolean doIsDisplayed(By locator) {
 		return getElement(locator).isDisplayed();
 	}
-
+	
+	
+	
 	public void vefiyElementPresent(By locator) {
 		List<WebElement> emailList = doGetElements(locator);
 		System.out.println(emailList.size());// 0

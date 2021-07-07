@@ -21,7 +21,8 @@ public class AccountPage {
 	private By accSection = By.cssSelector("div #content h2");
 	private By searchbar = By.name("search");
 	private By logoutLink = By.linkText("Logout");
-	
+
+	// page links
 
 	// 2. constructor
 	public AccountPage(WebDriver driver) {
@@ -51,16 +52,11 @@ public class AccountPage {
 		}
 
 	}
-	
-	public String success_msg()
-	{
+
+	public String success_msg() {
 		return elementUtil.waitForTitleIs(Constants.ACCOUNT_SUCCESS_HEADER, 5);
-		
-		
+
 	}
-	
-	
-	
 
 	public List<String> getAccountSeclist() {
 
@@ -77,6 +73,12 @@ public class AccountPage {
 
 	public boolean isSearchExist() {
 		return elementUtil.doIsDisplayed(searchbar);
+	}
+
+	public boolean isPageLinkAvaiable(String link) {
+
+		return elementUtil.doIsDisplayed(By.linkText(link));
+
 	}
 
 }
