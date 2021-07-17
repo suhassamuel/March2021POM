@@ -45,7 +45,8 @@ public class DriverFactory {
 	 */
 	public WebDriver initDriver(Properties prop) {
 
-		String browserName = prop.getProperty("browser");
+		String browserName = prop.getProperty("browser").trim();
+		String browserVersion = prop.getProperty("browserversion").trim();
 
 		System.out.println("Browser name : " + browserName);
 		optionsManager = new OptionsManager(prop);
@@ -54,23 +55,21 @@ public class DriverFactory {
 		if (browserName.equalsIgnoreCase("chrome")) {
 			WebDriverManager.chromedriver().setup();
 
-			if(Boolean.parseBoolean(prop.getProperty("remote")))
-			{
-				init_remoteDriver("chrome");
-			}
-			else
-			{
+			if (Boolean.parseBoolean(prop.getProperty("remote"))) {
+				init_remoteDriver("chrome", browserVersion);
+			} else {
 				tlDriver.set(new ChromeDriver(optionsManager.getChromeOptions()));
 			}
 			// driver = new ChromeDriver(optionsManager.getChromeOptions());
-
-			
-
 		} else if (browserName.equalsIgnoreCase("firefox")) {
 			WebDriverManager.firefoxdriver().setup();
 			// driver = new FirefoxDriver(optionsManager.getFireFoxOptions());
 
-			tlDriver.set(new FirefoxDriver(optionsManager.getFireFoxOptions()));
+			if (Boolean.parseBoolean(prop.getProperty("remote"))) {
+				init_remoteDriver("firefox", browserVersion);
+			} else {
+				tlDriver.set(new FirefoxDriver(optionsManager.getFireFoxOptions()));
+			}
 
 		} else if (browserName.equalsIgnoreCase("safari")) {
 			// driver = new SafariDriver();
@@ -82,50 +81,53 @@ public class DriverFactory {
 			System.out.println("pass the correct browsername : " + browserName);
 		}
 
-		/*driver.get(prop.getProperty("url"));
-		driver.manage().deleteAllCookies();
-		driver.manage().window().maximize();*/
+		/*
+		 * driver.get(prop.getProperty("url")); driver.manage().deleteAllCookies();
+		 * driver.manage().window().maximize();
+		 */
 		getDriver().get(prop.getProperty("url"));
 		getDriver().manage().deleteAllCookies();
 		getDriver().manage().window().maximize();
 
-		//return driver;
+		// return driver;
 		return getDriver();
 	}
-	
-	private void init_remoteDriver(String browser) {
-		System.out.println("Running test on groid server"+browser);
-		
-		if(browser.equals("chrome"))
-		{
+
+	private void init_remoteDriver(String browser, String browserVersion) {
+		System.out.println("Running test on groid server" + browser + "Version :" + browserVersion);
+
+		if (browser.equals("chrome")) {
 			DesiredCapabilities cap = DesiredCapabilities.chrome();
+			cap.setCapability("browserName", "chrome");
+			cap.setCapability("browserVersion", browserVersion);
+			cap.setCapability("enableVNC", true);
+
 			cap.setCapability(ChromeOptions.CAPABILITY, optionsManager.getChromeOptions());
 			try {
 				tlDriver.set(new RemoteWebDriver(new URL(prop.getProperty("huburl")), cap));
 			} catch (MalformedURLException e) {
-				
+
 				e.printStackTrace();
 			}
-		}
-		else if(browser.equals("chrome"))
-		{
+		} else if (browser.equals("firefox")) {
 			DesiredCapabilities cap = DesiredCapabilities.firefox();
+			cap.setCapability("browserName", "firefox");
+			cap.setCapability("browserVersion", browserVersion);
+			cap.setCapability("enableVNC", true);
 			cap.setCapability(FirefoxOptions.FIREFOX_OPTIONS, optionsManager.getFireFoxOptions());
 			try {
 				tlDriver.set(new RemoteWebDriver(new URL(prop.getProperty("huburl")), cap));
 			} catch (MalformedURLException e) {
-				
+
 				e.printStackTrace();
 			}
 		}
-		
+
 	}
 
-	public static synchronized WebDriver getDriver()
-	{
+	public static synchronized WebDriver getDriver() {
 		return tlDriver.get();
 	}
-	
 
 	/**
 	 * This method is used to initialize the prop from config file envName =
@@ -188,14 +190,14 @@ public class DriverFactory {
 
 	/**
 	 * This method is used to take screenshot
-	 * @return 
+	 * 
+	 * @return
 	 */
-	public String getScreenshot()
-	{
-		File src = ((TakesScreenshot)getDriver()).getScreenshotAs(OutputType.FILE);
-		
-		String path = System.getProperty("user.dir")+"/screenshots/"+System.currentTimeMillis()+".png";
-		
+	public String getScreenshot() {
+		File src = ((TakesScreenshot) getDriver()).getScreenshotAs(OutputType.FILE);
+
+		String path = System.getProperty("user.dir") + "/screenshots/" + System.currentTimeMillis() + ".png";
+
 		File destination = new File(path);
 		try {
 			FileUtils.copyFile(src, destination);
