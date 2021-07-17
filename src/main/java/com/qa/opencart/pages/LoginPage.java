@@ -6,6 +6,8 @@ import org.openqa.selenium.WebDriver;
 import com.qa.opencart.utils.Constants;
 import com.qa.opencart.utils.ElementUtil;
 
+import io.qameta.allure.Step;
+
 public class LoginPage {
 
 	private WebDriver driver;
@@ -15,12 +17,11 @@ public class LoginPage {
 	private By email = By.id("input-email");
 	private By password = By.id("input-password");
 	private By loginbtn = By.xpath("//input[@value='Login']");
-	private By forgotpwd = By.linkText("Forgotten Password");
+	private By forgotpwd = By.linkText("Forgotten Password11");
 
 	private By registerLink = By.xpath("//a[text()='Register' and @class='list-group-item']");
-	
+
 	private By registerLink1 = By.linkText("Register");
-	
 
 	// 2. constructor
 	public LoginPage(WebDriver driver) {
@@ -29,17 +30,20 @@ public class LoginPage {
 	}
 
 	// 3. Page action
+
+	@Step("getting login page title")
 	public String getLoginPageTitle() {
 		// return driver.getTitle();
 		return elementUtil.waitForTitleIs(Constants.LOGIN_PAGE_TITLE, 5);
-
 	}
 
+	@Step("getting forgot password link exist or not")
 	public boolean isForgotPwdExist() {
 		// return driver.findElement(forgotpwd).isDisplayed();
 		return elementUtil.doIsDisplayed(forgotpwd);
 	}
 
+	@Step("login with username: {0} and password {1}")
 	public AccountPage doLogin(String un, String pwd) {
 		System.out.println("login with: username" + "un" + "Password: " + pwd);
 
@@ -56,10 +60,12 @@ public class LoginPage {
 
 	}
 
+	@Step("getting register link exist or not")
 	public boolean registerLinkExist() {
 		return elementUtil.doIsDisplayed(registerLink);
 	}
 
+	@Step("getting register link clicked  or not")
 	public RegisterPage registerLinkClick() {
 		if (elementUtil.doIsDisplayed(registerLink)) {
 			elementUtil.doClick(registerLink);
@@ -67,11 +73,11 @@ public class LoginPage {
 		}
 		return new RegisterPage(driver);
 	}
-	
-	public RegistrationPage navigateToRegisterPage()
-	{
-	  elementUtil.doClick(registerLink1);
-	  
-	  return new RegistrationPage(driver);
+
+	@Step("navigating to register page")
+	public RegistrationPage navigateToRegisterPage() {
+		elementUtil.doClick(registerLink1);
+
+		return new RegistrationPage(driver);
 	}
 }
