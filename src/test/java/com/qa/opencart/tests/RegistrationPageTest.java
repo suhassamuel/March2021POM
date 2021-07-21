@@ -11,7 +11,9 @@ import com.qa.opencart.utils.Constants;
 import com.qa.opencart.utils.ExcelUtil;
 
 public class RegistrationPageTest extends BaseTest {
-
+	
+	private String TEST_DATA_SHEET = "./src\\test\\resources\\testdata\\Democart_register.xlsx";
+	
 	@BeforeClass
 	private void setUpRgistration() {
 		
@@ -23,7 +25,7 @@ public class RegistrationPageTest extends BaseTest {
 	public String getRandomEmail()
 	{
 		Random raandomGenerator = new Random();
-		String email = "qaautomationtest"+raandomGenerator.nextInt(100)+"@gmail.com";
+		String email = "qaautomationtest45"+raandomGenerator.nextInt(100)+"@gmail.com";
 		return email;
 		
 	}
@@ -31,7 +33,8 @@ public class RegistrationPageTest extends BaseTest {
 	@DataProvider
 	public Object[][] getRegisterData()
 	{
-		return  ExcelUtil.getTestData(Constants.REGISTER_SHEET_NAME);
+		return   new ExcelUtil().getTestData(TEST_DATA_SHEET, Constants.REGISTER_SHEET_NAME);
+		
 	}
 	@Test(dataProvider="getRegisterData")
 	public void userRegistrationtest ( String firstName,

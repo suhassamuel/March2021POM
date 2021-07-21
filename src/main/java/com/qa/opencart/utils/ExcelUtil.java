@@ -11,27 +11,29 @@ import org.apache.poi.ss.usermodel.WorkbookFactory;
 
 public class ExcelUtil {
 
-	private static final String TEST_DATA_SHEET = "./src\\test\\resources\\testdata\\Democart.xlsx";
+	//private static final String TEST_DATA_SHEET = "./src\\test\\resources\\testdata\\Democart.xlsx";
 
 	private static Workbook book;
 	private static Sheet sheet;
 
-	public static Object[][] getTestData(String sheetName) {
+	public  Object[][] getTestData(String fileName, String sheetName) {
 		Object data[][] = null;
 		FileInputStream ip;
 		try {
-			ip = new FileInputStream(TEST_DATA_SHEET);
+			ip = new FileInputStream(fileName);
 			book = WorkbookFactory.create(ip);
 			sheet = book.getSheet(sheetName);
 			
 			// data = new Object[4][5];
 					
 			data = new Object[sheet.getLastRowNum()][sheet.getRow(0).getLastCellNum()];
-			
+			System.out.println(sheet.getLastRowNum());
+			System.out.println("columns of sheet"+sheetName+sheet.getRow(0).getLastCellNum());
 			for (int i=0;i<sheet.getLastRowNum();i++)
 			{
 				for (int j = 0; j<sheet.getRow(0).getLastCellNum();j++)
 				{
+					System.out.println(sheet.getRow(i+1).getCell(j).toString());
 					data[i][j] =  sheet.getRow(i+1).getCell(j).toString();
 				}
 			}

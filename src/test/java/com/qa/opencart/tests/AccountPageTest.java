@@ -12,7 +12,7 @@ import com.qa.opencart.utils.ExcelUtil;
 
 public class AccountPageTest extends BaseTest{
 	
-	
+	private String TEST_DATA_SHEET = "./src\\test\\resources\\testdata\\Democart_account.xlsx";
 	@BeforeClass
 	public void AccntPageSetup()
 	{
@@ -22,7 +22,7 @@ public class AccountPageTest extends BaseTest{
 	@DataProvider
 	public Object[][] getLinkdata()
 	{
-		return ExcelUtil.getTestData(Constants.ACCOUNT_PAGELINKS_SHEET_NAME);
+		return new ExcelUtil().getTestData(TEST_DATA_SHEET,Constants.ACCOUNT_PAGELINKS_SHEET_NAME);
 	}
 	
 	@Test (dataProvider = "getLinkdata")
