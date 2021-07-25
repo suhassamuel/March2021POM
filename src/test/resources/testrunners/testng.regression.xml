@@ -10,15 +10,14 @@
 			class-name="com.qa.opencart.listeners.TestAllureListener" />
 
 	</listeners>
-  	<test name="Open Cart Login Page Test - chrome 89">
+ <!--  	<test name="Open Cart Login Page Test - chrome 89">
 
 		<parameter name="browser" value="chrome" />
 		<parameter name="browserversion" value="89" />
 		<classes>
 			<class name="com.qa.opencart.tests.LoginPageTest" />
-			
 		</classes>
-	</test> 
+	</test>  -->
 	<test name="Open Cart Login Page Test - chrome 90">
 
 		<parameter name="browser" value="chrome" />
@@ -37,13 +36,13 @@
 		
 		</classes>
 	</test>
-	<test name="Open Cart Registration Page Test - firefox 57">
+	<!-- <test name="Open Cart Registration Page Test - firefox 57">
 		<parameter name="browser" value="firefox" />
 		<parameter name="browserversion" value="57" />
 
 		<classes>
 			<class name="com.qa.opencart.tests.RegistrationPageTest" />
 		</classes>
-	</test>
+	</test> -->
 
 </suite>
