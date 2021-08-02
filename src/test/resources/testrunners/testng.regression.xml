@@ -4,10 +4,10 @@
 <suite name="Open Cart Test Suite" verbose="4" thread-count="4" >
 <!-- parallel="tests" -->
 	<listeners>
-		<listener
-			class-name="com.qa.opencart.listeners.ExtentReportListener" />
-		<listener
-			class-name="com.qa.opencart.listeners.TestAllureListener" />
+		<listener class-name="com.qa.opencart.listeners.ExtentReportListener" />
+		<listener class-name="com.qa.opencart.listeners.TestAllureListener" />
+		<listener class-name="com.qa.opencart.listeners.AnnotationTransformer" />
+
 
 	</listeners>
  <!--  	<test name="Open Cart Login Page Test - chrome 89">
