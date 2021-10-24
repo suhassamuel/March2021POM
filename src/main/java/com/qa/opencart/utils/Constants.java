@@ -6,7 +6,7 @@ import java.util.List;
 public class Constants {
 
 	public final static String LOGIN_PAGE_TITLE = "Account Login";
-	public final static String ACCOUNT_PAGE_TITLE = "My Account11";
+	public final static String ACCOUNT_PAGE_TITLE = "My Account";
 	public final static String ACCOUNT_PAGE_HEADER = "Your Store";
 	public final static String ACCOUNT_SUCCESS_HEADER = "Your Account Has Been Created!";
 	public final static String ACCOUNT_PAGELINKS_SHEET_NAME = "pagelinks";

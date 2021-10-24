@@ -45,7 +45,7 @@ public class LoginPage {
 
 	@Step("login with username: {0} and password {1}")
 	public AccountPage doLogin(String un, String pwd) {
-		System.out.println("login with: username" + "un" + "Password: " + pwd);
+		System.out.println("login with: username" +un + "Password: " + pwd);
 
 		/*
 		 * driver.findElement(email).sendKeys(un);
